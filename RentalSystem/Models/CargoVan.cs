@@ -2,44 +2,43 @@
 
 namespace RentalSystem.Models
 {
-    internal class CargoVan : ICargoVan, IVehicle
+    internal class CargoVan : Vehicle,ICargoVan
     {
+        public CargoVan(string brand,
+            string model,
+            int drivingExperience,
+            decimal value,
+            DateTime startDate,
+            DateTime endDate,
+            DateTime returnDate)
+        {
+            Brand = brand;
+            Model = model;
+            DrivingExperience = drivingExperience;
+            Value = value;
+            StartDate = startDate;
+            EndDate = endDate;
+            ReturnDate = returnDate;
+            RentalPeriod = (EndDate - StartDate).Days;
+        }
         public int DrivingExperience { get; set; }
-        public string Brand { get; set; }
-        public string Model { get; set; }
-        public decimal Value { get; set; }
-        public int RentalPeriod { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public DateTime ReturnDate { get; set; }
-        public decimal CalculateCost()
-        {
-            throw new NotImplementedException();
-        }
 
-        public int CalculateDailyRentalPrice()
+        public override int CalculateDailyRentalPrice()
         {
-            throw new NotImplementedException();
+            if (RentalPeriod <= 7)
+            {
+                return 50;
+            }
+            return 40;
         }
-
-        public decimal CalculateInsurance()
+        public override decimal CalculateInsurance()
         {
-            throw new NotImplementedException();
-        }
-
-        public int CalculateRentalDays()
-        {
-            throw new NotImplementedException();
-        }
-
-        public decimal CalculateTotalRent()
-        {
-            throw new NotImplementedException();
-        }
-
-        public decimal CalculateTotalInsurance()
-        {
-            throw new NotImplementedException();
+            decimal result = Value * (0.03m / 100);
+            if (DrivingExperience > 5)
+            {
+                result -= (result * 0.15m);
+            }
+            return result;
         }
     }
 }
