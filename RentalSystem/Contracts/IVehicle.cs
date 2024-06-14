@@ -11,7 +11,8 @@
         DateTime ReturnDate { get; set; }
         decimal CalculateCost();
         int CalculateDailyRentalPrice();
-        decimal CalculateInsurance();
+        decimal CalculateInsuranceAfterCalculation();
+        decimal CalculateInitialInsurance();
         int CalculateRentalDays();
         decimal CalculateTotalRent();
         decimal CalculateTotalInsurance();

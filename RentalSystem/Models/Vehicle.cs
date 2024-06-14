@@ -11,7 +11,8 @@ namespace RentalSystem.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime ReturnDate { get; set; }
-        public abstract decimal CalculateInsurance();
+        public abstract decimal CalculateInsuranceAfterCalculation();
+        public abstract decimal CalculateInitialInsurance();
         public abstract int CalculateDailyRentalPrice();
         public int CalculateRentalDays() => RentalPeriod - (EndDate - ReturnDate).Days;
         public decimal CalculateTotalRent()
@@ -30,10 +31,10 @@ namespace RentalSystem.Models
             if (ReturnDate >= StartDate && ReturnDate < EndDate)
             {
                 int fullDays = CalculateRentalDays();
-                decimal insuranceCost = fullDays * CalculateInsurance();
+                decimal insuranceCost = fullDays * CalculateInsuranceAfterCalculation();
                 return insuranceCost;
             }
-            return CalculateInsurance() * RentalPeriod;
+            return CalculateInsuranceAfterCalculation() * RentalPeriod;
         }
         public decimal CalculateCost()
         {

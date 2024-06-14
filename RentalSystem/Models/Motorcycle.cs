@@ -22,6 +22,11 @@ namespace RentalSystem.Models
             RentalPeriod = (EndDate - StartDate).Days;
         }
         public int RiderAge { get; set; }
+        public override decimal CalculateInitialInsurance()
+        {
+            return Value * (0.02m / 100);
+        }
+
         public override int CalculateDailyRentalPrice()
         {
             if (RentalPeriod <= 7)
@@ -31,9 +36,9 @@ namespace RentalSystem.Models
             return 10;
         }
 
-        public override decimal CalculateInsurance()
+        public override decimal CalculateInsuranceAfterCalculation()
         {
-            decimal result = Value * (0.02m / 100);
+            decimal result = CalculateInitialInsurance();
             if (RiderAge < 25)
             {
                 result += (result * 0.20m);

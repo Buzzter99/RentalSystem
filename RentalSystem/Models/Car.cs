@@ -22,6 +22,11 @@ namespace RentalSystem.Models
             RentalPeriod = (EndDate - StartDate).Days;
         }
         public int SafetyRating { get; set; }
+        public override decimal CalculateInitialInsurance()
+        {
+            return Value * (0.01m / 100);
+        }
+
         public override int CalculateDailyRentalPrice()
         {
             if (RentalPeriod <= 7)
@@ -30,9 +35,9 @@ namespace RentalSystem.Models
             }
             return 15;
         }
-        public override decimal CalculateInsurance()
+        public override decimal CalculateInsuranceAfterCalculation()
         {
-            decimal result = Value * (0.01m / 100);
+            decimal result = CalculateInitialInsurance();
             if (SafetyRating >= 4 && SafetyRating <= 5)
             {
                 result -= (result * 0.10m);
