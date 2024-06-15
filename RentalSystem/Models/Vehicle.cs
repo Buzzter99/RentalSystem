@@ -55,11 +55,11 @@ namespace RentalSystem.Models
             Console.WriteLine($"Customer Name: {customer}");
             Console.WriteLine($"Rented Vehicle: {vehicle.Brand} {vehicle.Model}");
             Console.WriteLine();
-            Console.WriteLine($"Reservation start date: {vehicle.StartDate}");
-            Console.WriteLine($"Reservation end date: {vehicle.EndDate}");
+            Console.WriteLine($"Reservation start date: {vehicle.StartDate:yy-MM-dd}");
+            Console.WriteLine($"Reservation end date: {vehicle.EndDate:yy-MM-dd}");
             Console.WriteLine($"Reserved rental days: {(vehicle.EndDate - vehicle.StartDate).Days} days");
             Console.WriteLine();
-            Console.WriteLine($"Actual Return date: {vehicle.ReturnDate}");
+            Console.WriteLine($"Actual Return date: {vehicle.ReturnDate:yy-MM-dd}");
             Console.WriteLine($"Actual rental days: {vehicle.CalculateRentalDays()}");
             Console.WriteLine();
             Console.WriteLine($"Rental cost per day: ${vehicle.CalculateDailyRentalPrice():f2}");
