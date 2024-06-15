@@ -65,8 +65,9 @@ namespace RentalSystem.Models
             Console.WriteLine($"Rental cost per day: ${vehicle.CalculateDailyRentalPrice():f2}");
             if (vehicle.CalculateInitialInsurance() != vehicle.CalculateInsuranceAfterCalculation())
             {
+                string operation = vehicle.GetType().Name == nameof(Motorcycle) ? "addition" : "discount";
                 Console.WriteLine($"Initial insurance per day: {vehicle.CalculateInitialInsurance():f2}");
-                Console.WriteLine($"Insurance discount per day: {Math.Abs(vehicle.CalculateInsuranceAfterCalculation() - vehicle.CalculateInitialInsurance()):f2}");
+                Console.WriteLine($"Insurance {operation} per day: {Math.Abs(vehicle.CalculateInsuranceAfterCalculation() - vehicle.CalculateInitialInsurance()):f2}");
             }
             Console.WriteLine($"Insurance per day: ${vehicle.CalculateInsuranceAfterCalculation():f2}");
             Console.WriteLine();
