@@ -4,8 +4,8 @@ namespace RentalSystem.Models
 {
     public abstract class Vehicle : IVehicle
     {
-        public string Brand { get; set; }
-        public string Model { get; set; }
+        public string Brand { get; set; } = string.Empty;
+        public string Model { get; set; } = string.Empty;
         public decimal Value { get; set; }
         public int RentalPeriod { get; set; }
         public DateTime StartDate { get; set; }
@@ -20,12 +20,23 @@ namespace RentalSystem.Models
             if (ReturnDate >= StartDate && ReturnDate < EndDate)
             {
                 int fullDays = CalculateRentalDays();
-                int halfPriceDays = (ReturnDate - StartDate).Days;
+                int halfPriceDays = (EndDate - ReturnDate).Days;
                 decimal rentalCost = fullDays * CalculateDailyRentalPrice() + halfPriceDays * (CalculateDailyRentalPrice() / 2.0m);
                 return rentalCost;
             }
+            return CalculateTotalRentWithoutDiscount();
+        }
+
+        public decimal CalculateTotalRentWithoutDiscount()
+        {
             return CalculateDailyRentalPrice() * RentalPeriod;
         }
+
+        public decimal CalculateTotalInsuranceWithoutDiscount()
+        {
+            return CalculateInsuranceAfterCalculation() * RentalPeriod;
+        }
+
         public decimal CalculateTotalInsurance()
         {
             if (ReturnDate >= StartDate && ReturnDate < EndDate)
@@ -34,7 +45,7 @@ namespace RentalSystem.Models
                 decimal insuranceCost = fullDays * CalculateInsuranceAfterCalculation();
                 return insuranceCost;
             }
-            return CalculateInsuranceAfterCalculation() * RentalPeriod;
+            return CalculateTotalInsuranceWithoutDiscount();
         }
         public decimal CalculateCost()
         {

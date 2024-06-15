@@ -15,6 +15,8 @@
         decimal CalculateInitialInsurance();
         int CalculateRentalDays();
         decimal CalculateTotalRent();
+        decimal CalculateTotalRentWithoutDiscount();
+        decimal CalculateTotalInsuranceWithoutDiscount();
         decimal CalculateTotalInsurance();
     }
 }
