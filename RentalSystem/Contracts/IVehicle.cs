@@ -18,5 +18,6 @@
         decimal CalculateTotalRentWithoutDiscount();
         decimal CalculateTotalInsuranceWithoutDiscount();
         decimal CalculateTotalInsurance();
+        void PrintInvoice(string customer, IVehicle vehicle);
     }
 }

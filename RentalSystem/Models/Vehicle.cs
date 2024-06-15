@@ -47,6 +47,45 @@ namespace RentalSystem.Models
             }
             return CalculateTotalInsuranceWithoutDiscount();
         }
+
+        public void PrintInvoice(string customer, IVehicle vehicle)
+        {
+            Console.WriteLine(new string('X',10));
+            Console.WriteLine("Date: " + vehicle.EndDate);
+            Console.WriteLine($"Customer Name: {customer}");
+            Console.WriteLine($"Rented Vehicle: {vehicle.Brand} {vehicle.Model}");
+            Console.WriteLine();
+            Console.WriteLine($"Reservation start date: {vehicle.StartDate}");
+            Console.WriteLine($"Reservation end date: {vehicle.EndDate}");
+            Console.WriteLine($"Reserved rental days: {(vehicle.EndDate - vehicle.StartDate).Days} days");
+            Console.WriteLine();
+            Console.WriteLine($"Actual Return date: {vehicle.ReturnDate}");
+            Console.WriteLine($"Actual rental days: {vehicle.CalculateRentalDays()}");
+            Console.WriteLine();
+            Console.WriteLine($"Rental cost per day: ${vehicle.CalculateDailyRentalPrice():f2}");
+            if (vehicle.CalculateInitialInsurance() != vehicle.CalculateInsuranceAfterCalculation())
+            {
+                Console.WriteLine($"Initial insurance per day: {vehicle.CalculateInitialInsurance():f2}");
+                Console.WriteLine($"Insurance discount per day: {Math.Abs(vehicle.CalculateInsuranceAfterCalculation() - vehicle.CalculateInitialInsurance()):f2}");
+            }
+            Console.WriteLine($"Insurance per day: ${vehicle.CalculateInsuranceAfterCalculation():f2}");
+            Console.WriteLine();
+            if (vehicle.CalculateTotalRentWithoutDiscount() - vehicle.CalculateTotalRent() != 0)
+            {
+                Console.WriteLine($"Early return discount for rent: ${(vehicle.CalculateTotalRentWithoutDiscount() - vehicle.CalculateTotalRent()):f2}");
+            }
+            if (vehicle.CalculateTotalInsuranceWithoutDiscount() - vehicle.CalculateTotalInsurance() != 0)
+            {
+                Console.WriteLine($"Early return discount for insurance: ${(vehicle.CalculateTotalInsuranceWithoutDiscount() - vehicle.CalculateTotalInsurance()):f2}");
+                Console.WriteLine();
+            }
+            Console.WriteLine($"Total rent: ${vehicle.CalculateTotalRent():f2}");
+            Console.WriteLine($"Total insurance: ${vehicle.CalculateTotalInsurance():f2}");
+            Console.WriteLine($"Total: ${vehicle.CalculateCost():f2}");
+            Console.WriteLine(new string('X', 10));
+            Console.WriteLine();
+        }
+
         public decimal CalculateCost()
         {
             return CalculateTotalInsurance() + CalculateTotalRent();
